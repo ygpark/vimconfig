@@ -1,25 +1,67 @@
-"==
-"= 주의사항
-"==
-"  - source ~/vimrc/vundle은 맨 처음 올 것.
-"  - BundleInstall로 설치한 플러그인은 ~/vimrc/vundle 파일에 추가해야 다음번
-"    실행시 로드됨
-"  - Source Explorer의 충돌을 피하기 위해서 SrcExpl_pluginList를 새로 작성
-"  - 
+"주의: Source Explorer의 충돌을 피하기 위해서 SrcExpl_pluginList를 새로 작성
+
 
 "==
-"= include
+"= tags 등록
 "==
-source ~/vimconfig/config_vundle
-source ~/vimconfig/config_taglist_plugin 
-source ~/vimconfig/config_nerd_tree_plugin 
-source ~/vimconfig/config_man
+set tags=./tags
+set tags+=/home/ygpark/bin/ndk/platforms/android-14/arch-arm/usr/include/tags
+"set tags+=~/repo/iamroot-linux-arm10c/tags
+"set tags+=~/.vimtags/cpp
+
+"==
+"= Bundle
+"==
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
+
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+Bundle 'snipMate'
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'The-NERD-tree'
+Bundle 'taglist.vim'
+Bundle 'bufexplorer.zip'
+Bundle 'DirDiff.vim'
+Bundle 'git://github.com/wesleyche/SrcExpl.git'
+Bundle 'AutoComplPop'
+Bundle 'SuperTab'
+Bundle 'SuperTab-continued.'
+Bundle 'cscope_macros.vim'
+"colorscheme
+Bundle 'molokai'
+Bundle 'desert'
+
+filetype plugin indent on     " required!
+
+"==
+"= colorscheme
+"==
+if has('gui_running')
+  colorscheme molokai
+else
+  colorscheme desert
+endif
+
 
 "==
 "= 기본 설정
 "==
 set cindent			"들여쓰기 설정
-"set bg=dark
 set ruler			" 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여준다.
 set number			" 줄번호 출력
 set modifiable
@@ -33,18 +75,7 @@ set printoptions=portrait:n,wrap:n,duplex:off
 set fileencodings=utf-8,euc-kr
 set gfn=나눔고딕코딩\ 10	" gvim용 폰트 설정
 
-let g:molokai_original = 1
-let g:rehash256 = 1
-set background=dark
-colorscheme molokai		" 색상
 
-"==
-"= tags 등록
-"==
-set tags=./tags
-set tags+=/home/ygpark/bin/ndk/platforms/android-14/arch-arm/usr/include/tags
-"set tags+=~/repo/iamroot-linux-arm10c/tags
-"set tags+=~/.vimtags/cpp
 
 
 "========= key mapping ==========
@@ -122,14 +153,6 @@ let g:SrcExpl_updateTagsKey = "<F12>"
 "-----------------------------"
 
 
-
-
-
-
-
-
-
-
 "====,mk===== make setting =============
 let startdir = getcwd()
 func! Make()
@@ -151,29 +174,6 @@ func! Hv()
 endfunc
 nmap ,h :call Hv()<cr>
 
-"============ file buffer CleanClose =============
-func! CleanClose(tosave)
-if (a:tosave == 1)
-	w!
-endif
-let todelbufNr = bufnr("%")
-let newbufNr = bufnr("#")
-if ((newbufNr != -1) && (newbufNr != todelbufNr) && buflisted(newbufNr))
-	exe "b".newbufNr
-else
-	bnext
-endif
-
-if (bufnr("%") == todelbufNr)
-	new
-endif
-	exe "bd".todelbufNr
-endfunc
-
-nmap ,cf :call CleanClose(0)<cr>
-
-"============ open CWD =============
-nmap ,od :e ./<cr>
 
 
 "============ project specific settings =============
@@ -182,28 +182,9 @@ if filereadable(".project.vimrc")
 endif
 "==================================
 
-
-
-
-"========= OmniCppComplete =======
-au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
-" configure tags - add additional tags here or comment out not-used ones
-"set tags+=~/.vim/tags/gl
-"set tags+=~/.vim/tags/sdl
-"set tags+=~/.vim/tags/qt4
-" build tags of your own project with Ctrl-F12
-map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-
-" OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
-"==================================
+"==
+"= include
+"==
+source ~/vimconfig/config_taglist_plugin 
+source ~/vimconfig/config_nerd_tree_plugin 
+source ~/vimconfig/config_man
