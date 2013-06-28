@@ -10,10 +10,10 @@
 "==
 "= include
 "==
-source ~/vimrc/config_vundle
-source ~/vimrc/config_taglist_plugin 
-source ~/vimrc/config_nerd_tree_plugin 
-source ~/vimrc/config_man
+source ~/vimconfig/config_vundle
+source ~/vimconfig/config_taglist_plugin 
+source ~/vimconfig/config_nerd_tree_plugin 
+source ~/vimconfig/config_man
 
 "==
 "= 기본 설정
