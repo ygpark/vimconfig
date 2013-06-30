@@ -1,17 +1,17 @@
 "주의: Source Explorer의 충돌을 피하기 위해서 SrcExpl_pluginList를 새로 작성
 
 
-"==
+"==========================
 "= tags 등록
-"==
+"==========================
 set tags=./tags
-set tags+=/home/ygpark/bin/ndk/platforms/android-14/arch-arm/usr/include/tags
-"set tags+=~/repo/iamroot-linux-arm10c/tags
+"set tags+=/home/ygpark/bin/ndk/platforms/android-14/arch-arm/usr/include/tags
+set tags+=~/repo/iamroot-linux-arm10c/tags
 "set tags+=~/.vimtags/cpp
 
-"==
+"==========================
 "= Bundle
-"==
+"==========================
 " :BundleList          - list configured bundles
 " :BundleInstall(!)    - install(update) bundles
 " :BundleSearch(!) foo - search(or refresh cache first) for foo
@@ -38,29 +38,19 @@ Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
 Bundle 'DirDiff.vim'
 Bundle 'git://github.com/wesleyche/SrcExpl.git'
-Bundle 'AutoComplPop'
+"Bundle 'AutoComplPop'
 Bundle 'SuperTab'
 Bundle 'SuperTab-continued.'
 Bundle 'cscope_macros.vim'
-"colorscheme
-Bundle 'molokai'
-Bundle 'desert'
+Bundle 'vmark.vim--Visual-Bookmarking'
 
 filetype plugin indent on     " required!
 
-"==
-"= colorscheme
-"==
-if has('gui_running')
-  colorscheme molokai
-else
-  colorscheme desert
-endif
 
 
-"==
+"==========================
 "= 기본 설정
-"==
+"==========================
 set cindent			"들여쓰기 설정
 set ruler			" 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여준다.
 set number			" 줄번호 출력
@@ -74,38 +64,42 @@ set ignorecase
 set printoptions=portrait:n,wrap:n,duplex:off
 set fileencodings=utf-8,euc-kr
 set gfn=나눔고딕코딩\ 10	" gvim용 폰트 설정
+colorscheme desert
 
 
 
 
-"========= key mapping ==========
-" 펑션키: F1 ~ F12
-map <F2> v]}zf				"코드의 { 부분에서 영역 접기
-map <F3> zo				"영역 펼치기
+"==========================
+"= 키맵핑
+"==========================
+
+"=====  펑션키: F1 ~ F12
+"map <F2> v]}zf				"코드의 { 부분에서 영역 접기
+"map <F3> zo				"영역 펼치기
 map <F4> :set fileencoding=utf-8<cr>	"파일 인코딩 변경
 map <F5> :!./build.sh<cr>
 map <F6> :BufExplorer<cr>
-map <F7> :SrcExplToggle<CR> 
-map <F8> :NERDTreeToggle<CR>
+map <F7> :NERDTreeToggle<CR>
+map <F8> :SrcExplToggle<CR> 
 map <F9> :TlistToggle<CR>
 
-" PageUP PageDown
+"=====  PageUP PageDown
 map <PageUp> <C-U><C-U>
 map <PageDown> <C-D><C-D>
 
-"Vim 내의 창 크기 조절
+"===== Vim 내의 창 크기 조절
 nmap <s-h> <C-W><
 nmap <s-j> <C-W>-
 nmap <s-k> <C-W>+
 nmap <s-l> <C-W>>
 
-"Vim 내에서 창 간 이동
+"===== Vim 내에서 창 간 이동
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j 
 nmap <c-k> <c-w>k 
 nmap <c-l> <c-w>l 
 
-"========= switch between file buffers ========
+"===== 버퍼간 이동
 map ,x :bn!<CR>	  " Switch to Next File Buffer
 map ,z :bp!<CR>	  " Switch to Previous File Buffer
 map ,w :bw<CR>	  " Close Current File Buffer
@@ -121,12 +115,37 @@ map ,8 :b!8<CR>	  " Switch to File Buffer #8
 map ,9 :b!9<CR>	  " Switch to File Buffer #9
 map ,0 :b!0<CR>	  " Switch to File Buffer #0
 
+"===== make
+let startdir = getcwd()
+func! Make()
+	exe "!cd ".startdir
+	exe "make"
+endfunc
+nmap ,mk :call Make()<cr><cr>
 
+"===== hexViewer
+let b:hexViewer = 0
+func! Hv()
+        if (b:hexViewer == 0)
+                let b:hexViewer = 1
+                exe "%!xxd"
+        else
+                let b:hexViewer = 0
+                exe "%!xxd -r"
+        endif
+endfunc
+nmap ,h :call Hv()<cr>
 
-"-----------------------------"
-"Source Explorer config
-"The switch of the Source Explorer 
+"===== man
+func! Man()
+	let sm = expand("<cword>")
+	exe "!man -S 2:3:4:5:6:7:8:9:tcl:n:l:p:o ".sm
+endfunc
+nmap ,ma :call Man()<cr><cr>
 
+"==========================
+"= Source Explorer config
+"==========================
 let g:SrcExpl_winHeight = 8 
 let g:SrcExpl_refreshTime = 100 
 let g:SrcExpl_jumpKey = "<ENTER>" 
@@ -141,50 +160,32 @@ let g:SrcExpl_pluginList = [
 				\ ] 
 
 let g:SrcExpl_searchLocalDef = 1 
-
-" // Do not let the Source Explorer update the tags file when opening 
-let g:SrcExpl_isUpdateTags = 0 
-
+let g:SrcExpl_isUpdateTags = 0 "Do not let the Source Explorer update the tags file when opening 
 " // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
 " //  create/update a tags file 
 let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
 let g:SrcExpl_updateTagsKey = "<F12>" 
 
-"-----------------------------"
+"==========================
+"= Tag List
+"==========================
+filetype on"vim filetpye on
+let Tlist_Ctags_Cmd="/usr/bin/ctags"
+let Tlist_Inc_Winwidth=0
+let Tlist_Exit_OnlyWindow=0
+"window close=off
+let Tlist_Auto_Open=0
+let Tlist_Use_Right_Window=1
 
-
-"====,mk===== make setting =============
-let startdir = getcwd()
-func! Make()
-	exe "!cd ".startdir
-	exe "make"
-endfunc
-nmap ,mk :call Make()<cr><cr>
-
-"====,h====== hexViewer setting =============
-let b:hexViewer = 0
-func! Hv()
-        if (b:hexViewer == 0)
-                let b:hexViewer = 1
-                exe "%!xxd"
-        else
-                let b:hexViewer = 0
-                exe "%!xxd -r"
-        endif
-endfunc
-nmap ,h :call Hv()<cr>
-
-
-
-"============ project specific settings =============
+"==========================
+"= Project config
+"==========================
 if filereadable(".project.vimrc")
 	source .project.vimrc
 endif
-"==================================
 
-"==
-"= include
-"==
-source ~/vimconfig/config_taglist_plugin 
-source ~/vimconfig/config_nerd_tree_plugin 
-source ~/vimconfig/config_man
+"==========================
+"= NERD Tree
+"==========================
+let NERDTreeWinPos="left"
+let g:NERDTreeDirArrows=0

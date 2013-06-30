@@ -1,5 +1,0 @@
-"========= NERD Tree ========
-"NERD Tree config
-let NERDTreeWinPos="left"
-let g:NERDTreeDirArrows=0
-"-----------------------------"
