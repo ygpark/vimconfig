@@ -43,6 +43,8 @@ Bundle 'SuperTab'
 Bundle 'SuperTab-continued.'
 Bundle 'cscope_macros.vim'
 Bundle 'vmark.vim--Visual-Bookmarking'
+Bundle 'https://github.com/vim-scripts/gtags.vim.git'
+Bundle 'OmniCppComplete'
 
 filetype plugin indent on     " required!
 
@@ -67,17 +69,27 @@ set gfn=나눔고딕코딩\ 10	" gvim용 폰트 설정
 colorscheme desert
 
 
-
-
+"==========================
+"= gtags.vim 설정
+"==========================
+nmap <C-F2> :copen<CR>
+nmap <C-F4> :cclose<CR>
+nmap <C-F5> :Gtags<SPACE>
+nmap <C-F6> :Gtags -f %<CR>
+nmap <C-F7> :GtagsCursor<CR>
+nmap <C-F8> :Gozilla<CR>
+nmap <C-n> :cn<CR>
+nmap <C-p> :cp<CR>
+nmap <C-\><C-]> :GtagsCursor<CR>
 "==========================
 "= 키맵핑
 "==========================
 
 "=====  펑션키: F1 ~ F12
-"map <F2> v]}zf				"코드의 { 부분에서 영역 접기
-"map <F3> zo				"영역 펼치기
+map <F2> v]}zf				"코드의 { 부분에서 영역 접기
+map <F3> zo				"영역 펼치기
 map <F4> :set fileencoding=utf-8<cr>	"파일 인코딩 변경
-map <F5> :!./build.sh<cr>
+"map <F5> :!./build.sh<cr>
 map <F6> :BufExplorer<cr>
 map <F7> :NERDTreeToggle<CR>
 map <F8> :SrcExplToggle<CR> 
@@ -165,6 +177,21 @@ let g:SrcExpl_isUpdateTags = 0 "Do not let the Source Explorer update the tags f
 " //  create/update a tags file 
 let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
 let g:SrcExpl_updateTagsKey = "<F12>" 
+
+
+"==========================
+"= auto load cscope.out
+"==========================
+function! LoadCscope()
+  let db = findfile("cscope.out", ".;")
+  if (!empty(db))
+    let path = strpart(db, 0, match(db, "/cscope.out$"))
+    set nocscopeverbose " suppress 'duplicate connection' error
+    exe "cs add " . db . " " . path
+    set cscopeverbose
+  endif
+endfunction
+au BufEnter /* call LoadCscope()
 
 "==========================
 "= Tag List
