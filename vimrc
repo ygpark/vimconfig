@@ -1,14 +1,5 @@
 "주의: Source Explorer의 충돌을 피하기 위해서 SrcExpl_pluginList를 새로 작성
 
-
-"==========================
-"= tags 등록
-"==========================
-set tags=./tags
-"set tags+=/home/ygpark/bin/ndk/platforms/android-14/arch-arm/usr/include/tags
-set tags+=~/repo/iamroot-linux-arm10c/tags
-"set tags+=~/.vimtags/cpp
-
 "==========================
 "= Bundle
 "==========================
@@ -43,10 +34,18 @@ Bundle 'SuperTab'
 Bundle 'SuperTab-continued.'
 Bundle 'cscope_macros.vim'
 Bundle 'vmark.vim--Visual-Bookmarking'
+Bundle 'gtags.vim'
 
 filetype plugin indent on     " required!
 
 
+"==========================
+"= tags 등록
+"==========================
+set tags=./tags
+"set tags+=/home/ygpark/bin/ndk/platforms/android-14/arch-arm/usr/include/tags
+"set tags+=~/repo/iamroot-linux-arm10c/tags
+"set tags+=~/.vimtags/cpp
 
 "==========================
 "= 기본 설정
@@ -115,6 +114,13 @@ map ,8 :b!8<CR>	  " Switch to File Buffer #8
 map ,9 :b!9<CR>	  " Switch to File Buffer #9
 map ,0 :b!0<CR>	  " Switch to File Buffer #0
 
+"===== gtags.vim
+nmap <C-n> :cn<CR>
+nmap <C-p> :cp<CR>
+nmap <C-\><C-]> :GtagsCursor<CR>
+
+
+
 "===== make
 let startdir = getcwd()
 func! Make()
@@ -156,7 +162,8 @@ let g:SrcExpl_gobackKey = "<SPACE>"
 let g:SrcExpl_pluginList = [ 
 				\ "__Tag_List__", 
 				\ "NERD_tree_1", 
-				\ "Source_Explorer" 
+				\ "Source_Explorer", 
+				\ "[BufExplorer]"
 				\ ] 
 
 let g:SrcExpl_searchLocalDef = 1 
