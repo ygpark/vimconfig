@@ -29,16 +29,24 @@ Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
 Bundle 'DirDiff.vim'
 Bundle 'git://github.com/wesleyche/SrcExpl.git'
-"Bundle 'AutoComplPop'
 Bundle 'SuperTab'
 Bundle 'SuperTab-continued.'
 Bundle 'cscope_macros.vim'
 Bundle 'vmark.vim--Visual-Bookmarking'
 Bundle 'gtags.vim'
 Bundle 'OmniCppComplete'
+Bundle 'armasm'
+"주석달기: \cc, \cn, \cs
+"다른모양 주석 설정: \ca
+"주석해제: \<space>
+Bundle 'The-NERD-Commenter'
 
 filetype plugin indent on     " required!
 
+"==========================
+"= 어셈블리 파일을 C처럼 인식하여 주석을 달기 위한 트릭
+"==========================
+au BufRead,BufNewFile *.S		set ft=c
 
 "==========================
 "= tags 등록
