@@ -19,10 +19,10 @@ vim 플러그인을 쉽게 설치하기 위한 프로젝트.
 
 |    이름    |            내용                                                 |
 | ---------- | --------------------------------------------------------------- |
-| /snippets  | SnipMate 플러그용 snippet. (자동 설치 미지원)                   |
-| /plugins   | 커스텀 플러그인 <br/> vimrc에서 'source' 명령으로 incldue한다.  |
-| README.md  | 이 파일                                                         |
-| install.sh | VIM 플러그인 설치파일                                           |
+| /snippets  | SnipMate 플러그용 snippets (자동 설치 미지원)                   |
+| /plugins   | 커스텀 플러그인 <br/> vimrc에서 'source' 명령으로 이 디렉토리의 파일들을 incldue한다.  |
+| README.md  | 지금 읽고 있는 파일                                             |
+| install.sh | 설치파일 <br/>  ~/.vimrc 파일과 ~/.vim/ 를 생성한다.            |
 | vimrc      | ~/.vimrc -> ~/vimconfig/vimrc                                   |
 
 
