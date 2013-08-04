@@ -231,3 +231,8 @@ endif
 "==========================
 let NERDTreeWinPos="left"
 let g:NERDTreeDirArrows=0
+
+"==========================
+"= Check Symbol
+"==========================
+source ~/vimconfig/plugins/checksymbol.vim
