@@ -36,6 +36,7 @@ Bundle 'vmark.vim--Visual-Bookmarking'
 Bundle 'gtags.vim'
 Bundle 'OmniCppComplete'
 Bundle 'armasm'
+Bundle 'https://github.com/dhruvasagar/vim-table-mode.git'
 "주석달기: \cc, \cn, \cs
 "다른모양 주석 설정: \ca
 "주석해제: \<space>
