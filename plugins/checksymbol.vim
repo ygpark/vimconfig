@@ -293,5 +293,4 @@ fu! Calc(var)
 endfu
 
 nmap <silent> <C-c> :call CheckSymbol(expand("<cword>"))<CR>
-nmap <silent> <C-j> :call Calc(input("Calculate: "))<CR>
 

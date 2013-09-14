@@ -41,6 +41,7 @@ Bundle 'https://github.com/dhruvasagar/vim-table-mode.git'
 "다른모양 주석 설정: \ca
 "주석해제: \<space>
 Bundle 'The-NERD-Commenter'
+Bundle 'autoload_cscope.vim'
 
 filetype plugin indent on     " required!
 
