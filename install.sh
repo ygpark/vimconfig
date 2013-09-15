@@ -1,9 +1,7 @@
 #!/bin/sh
 
 if [ -e ~/.vimrc -o -e ~/.vim ]; then
-	echo "TODO:"
-	echo "rm -rf ~/.vim"
-	echo "rm -f ~/.vimrc"
+	echo "경고: 설치를 진행하려면 ~/.vim/ 디렉토리와 ~/.vimrc 파일을 삭제해야 합니다."
 	exit
 fi
 
