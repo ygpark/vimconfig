@@ -42,6 +42,7 @@ Bundle 'https://github.com/dhruvasagar/vim-table-mode.git'
 "주석해제: \<space>
 Bundle 'The-NERD-Commenter'
 Bundle 'autoload_cscope.vim'
+Bundle 'AutoComplPop'
 
 filetype plugin indent on     " required!
 
@@ -73,8 +74,8 @@ set incsearch
 set ignorecase
 set printoptions=portrait:n,wrap:n,duplex:off
 set fileencodings=utf-8,euc-kr
-set gfn=나눔고딕코딩\ 10	" gvim용 폰트 설정
-colorscheme desert
+set gfn=나눔고딕코딩\ 12	" gvim용 폰트 설정
+"colorscheme desert
 
 
 "==========================
