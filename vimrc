@@ -71,7 +71,6 @@ set ts=8			" tab stop - tab 크기
 set sw=8			" shift width - shift 크기 조절
 set sts=8			" soft tab stop - tab 이동 크기
 set incsearch
-set ignorecase
 set printoptions=portrait:n,wrap:n,duplex:off
 set fileencodings=utf-8,euc-kr
 set gfn=나눔고딕코딩\ 12	" gvim용 폰트 설정
