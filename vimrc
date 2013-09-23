@@ -57,15 +57,25 @@ set ruler			" 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여
 set number			" 줄번호 출력
 set modifiable
 set hlsearch			" Highlight Search
-set ts=8			" tab stop - tab 크기
-set sw=8			" shift width - shift 크기 조절
-set sts=8			" soft tab stop - tab 이동 크기
+set ts=4			" tab stop - tab 크기
+set sw=4			" shift width - shift 크기 조절
+set sts=4			" soft tab stop - tab 이동 크기
+set expandtab
 set incsearch
 set printoptions=portrait:n,wrap:n,duplex:off
 set fileencodings=utf-8,euc-kr
 set gfn=나눔고딕코딩\ 12	" gvim용 폰트 설정
 colorscheme desert
 
+"==========================
+"= autocmd
+"==========================
+autocmd BufEnter *.c setlocal ts=8 sw=8 sts=8 noexpandtab
+autocmd BufEnter *.S setlocal ts=8 sw=8 sts=8 noexpandtab
+autocmd BufEnter *.md setlocal ts=8 sw=8 sts=8 noexpandtab
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 "==========================
 "= gtags.vim 설정
