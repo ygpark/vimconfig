@@ -108,10 +108,10 @@ map <PageUp> <C-U><C-U>
 map <PageDown> <C-D><C-D>
 
 "===== Vim 내의 창 크기 조절
-nmap <s-h> <C-W><
-nmap <s-j> <C-W>-
-nmap <s-k> <C-W>+
-nmap <s-l> <C-W>>
+nmap <s-h> <C-W>>
+nmap <s-j> <C-W>+
+nmap <s-k> <C-W>-
+nmap <s-l> <C-W><
 
 "===== Vim 내에서 창 간 이동
 nmap <c-h> <c-w>h
