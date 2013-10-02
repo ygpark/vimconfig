@@ -13,5 +13,3 @@ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 echo "vundle 설치중..."
 vi -c :BundleInstall -c :qa
-
-echo "vundle 설치중..."
