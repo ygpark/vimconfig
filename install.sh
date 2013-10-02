@@ -7,5 +7,5 @@ fi
 
 ln -s ~/vimconfig/vimrc ~/.vimrc
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-vi -c :BundleInstall
+vi -c :BundleInstall -c :qa!
 
