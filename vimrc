@@ -88,18 +88,18 @@ nmap <C-F8> :Gozilla<CR>
 nmap <C-n> :cn<CR>
 nmap <C-p> :cp<CR>
 nmap <C-\><C-]> :GtagsCursor<CR>
+
 "==========================
 "= 키맵핑
 "==========================
-
-"=====  펑션키: F1 ~ F12
-map <F2> v]}zf				"코드의 { 부분에서 영역 접기
-map <F3> zo				"영역 펼치기
-map <F4> :set fileencoding=utf-8<cr>	"파일 인코딩 변경
-"map <F5> :!./build.sh<cr>
+" <F3> is maped for SrcExpl
+" <F4> is maped for SrcExpl
 map <F6> :BufExplorer<cr>
 map <F7> :NERDTreeToggle<CR>
-map <F8> :SrcExplToggle<CR> 
+" SrcExpl의 버그에 대처하기 위해 set nocscopetag 옵션을 켠다. 이 옵션은
+" Ctrl+\ 키를 cscope가 사용하지 못하도록 하는 기능을 한다. cscope는 SrcExpl을
+" 로드할 때 켜지는 set autochdir옵션 때문에 경로를 인식하지 못하는 문제가 있다.
+map <F8> :SrcExplToggle<CR>:set nocscopetag<CR>
 map <F9> :TlistToggle<CR>
 
 "=====  PageUP PageDown
@@ -172,26 +172,43 @@ nmap ,ma :call Man()<cr><cr>
 "==========================
 "= Source Explorer config
 "==========================
-let g:SrcExpl_winHeight = 8 
-let g:SrcExpl_refreshTime = 100 
-let g:SrcExpl_jumpKey = "<ENTER>" 
-let g:SrcExpl_gobackKey = "<SPACE>" 
-" 충돌을 피하기 위해서 Source Explorer는 buffer는 사용하는 플러그인을 알아야 합니다.
-" 이 목록은 taglist, NERD Tree, Source Exploerer를 모두 띄어놓은 상태에서
-" ":buffers!"명령을 내려서 나오는 이름들을 적어주세요.
-let g:SrcExpl_pluginList = [ 
-				\ "__Tag_List__", 
-				\ "NERD_tree_1", 
-				\ "Source_Explorer", 
-				\ "[BufExplorer]"
-				\ ] 
 
-let g:SrcExpl_searchLocalDef = 1 
-let g:SrcExpl_isUpdateTags = 0 "Do not let the Source Explorer update the tags file when opening 
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
-" //  create/update a tags file 
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
-let g:SrcExpl_updateTagsKey = "<F12>" 
+" // Set the height of Source Explorer window
+let g:SrcExpl_winHeight = 8
+" // Set 100 ms for refreshing the Source Explorer
+let g:SrcExpl_refreshTime = 100
+" // Set "Enter" key to jump into the exact definition context
+let g:SrcExpl_jumpKey = "<ENTER>"
+" // Set "Space" key for back from the definition context
+let g:SrcExpl_gobackKey = "<SPACE>"
+
+" // In order to avoid conflicts, the Source Explorer should know what plugins
+" // except itself are using buffers. And you need add their buffer names into
+" // below listaccording to the command ":buffers!"
+let g:SrcExpl_pluginList = [
+				\ "__Tag_List__",
+				\ "NERD_tree_1",
+				\ "Source_Explorer",
+				\ "[BufExplorer]"
+				\ ]
+
+" // Enable/Disable the local definition searching, and note that this is not
+" // guaranteed to work, the Source Explorer doesn't check the syntax for now.
+" // It only searches for a match with the keyword according to command 'gd'
+let g:SrcExpl_searchLocalDef = 1
+" // Do not let the Source Explorer update the tags file when opening
+let g:SrcExpl_isUpdateTags = 0
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
+" // create/update the tags file
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
+" // Set "<F12>" key for updating the tags file artificially
+let g:SrcExpl_updateTagsKey = "<F12>"
+
+" // Set "<F3>" key for displaying the previous definition in the jump list
+let g:SrcExpl_prevDefKey = "<F3>"
+" // Set "<F4>" key for displaying the next definition in the jump list
+let g:SrcExpl_nextDefKey = "<F4>"
+
 
 
 
