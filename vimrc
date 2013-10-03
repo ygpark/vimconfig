@@ -40,7 +40,6 @@ Bundle 'https://github.com/dhruvasagar/vim-table-mode.git'
 "다른모양 주석 설정: \ca
 "주석해제: \<space>
 Bundle 'The-NERD-Commenter'
-Bundle 'autoload_cscope.vim'
 Bundle 'AutoComplPop'
 
 filetype plugin indent on     " required!
@@ -49,14 +48,6 @@ filetype plugin indent on     " required!
 "= 어셈블리 파일을 C처럼 인식하여 주석을 달기 위한 트릭
 "==========================
 au BufRead,BufNewFile *.S		set ft=c
-
-"==========================
-"= tags 등록
-"==========================
-set tags=./tags
-"set tags+=/home/ygpark/bin/ndk/platforms/android-14/arch-arm/usr/include/tags
-"set tags+=~/repo/iamroot-linux-arm10c/tags
-"set tags+=~/.vimtags/cpp
 
 "==========================
 "= 기본 설정
@@ -92,14 +83,11 @@ nmap <C-\><C-]> :GtagsCursor<CR>
 "==========================
 "= 키맵핑
 "==========================
-" <F3> is maped for SrcExpl
-" <F4> is maped for SrcExpl
+" <F3> 이전 정의로 이동 (SrcExpl 플러그인이 설정)
+" <F4> 다음 정의로 이동 (SrcExpl 플러그인이 설정)
 map <F6> :BufExplorer<cr>
 map <F7> :NERDTreeToggle<CR>
-" SrcExpl의 버그에 대처하기 위해 set nocscopetag 옵션을 켠다. 이 옵션은
-" Ctrl+\ 키를 cscope가 사용하지 못하도록 하는 기능을 한다. cscope는 SrcExpl을
-" 로드할 때 켜지는 set autochdir옵션 때문에 경로를 인식하지 못하는 문제가 있다.
-map <F8> :SrcExplToggle<CR>:set nocscopetag<CR>
+map <F8> :SrcExplToggle<CR>
 map <F9> :TlistToggle<CR>
 
 "=====  PageUP PageDown
@@ -235,6 +223,29 @@ endif
 "==========================
 let NERDTreeWinPos="left"
 let g:NERDTreeDirArrows=0
+
+
+
+"==========================
+"= tags 설정 (cscope, ctags)
+"==========================
+
+"Cscope의 상대경로 문제를 해결하기 위해서 매번 cscope.out파일을 새로 읽는다.
+function! LoadCscope()
+  exe "silent cs reset"
+  let db = findfile("cscope.out", ".;")
+  if (!empty(db))
+    let path = strpart(db, 0, match(db, "/cscope.out$"))
+    set nocscopeverbose " suppress 'duplicate connection' error
+    exe "cs add " . db . " " . path
+    set cscopeverbose
+  endif
+endfunction
+au BufEnter /* call LoadCscope()
+ 
+"현재 디렉토리부터 root 디렉토리까지 tags를 찾는다.
+set tags=tags;/
+
 
 "==========================
 "= Check Symbol
