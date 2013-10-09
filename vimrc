@@ -64,7 +64,7 @@ set incsearch
 set printoptions=portrait:n,wrap:n,duplex:off
 set fileencodings=utf-8,euc-kr
 set gfn=나눔고딕코딩\ 12	" gvim용 폰트 설정
-"colorscheme desert
+colorscheme desert
 
 
 "==========================
