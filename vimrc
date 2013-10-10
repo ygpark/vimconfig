@@ -73,6 +73,7 @@ colorscheme desert
 autocmd BufEnter *.c setlocal ts=8 sw=8 sts=8 noexpandtab
 autocmd BufEnter *.S setlocal ts=8 sw=8 sts=8 noexpandtab
 autocmd BufEnter *.md setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.sh setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
 autocmd BufEnter *.py setlocal ts=8 sw=8 sts=8 noexpandtab
 autocmd BufEnter Makefile setlocal ts=8 sw=8 sts=8 noexpandtab
 if has("autocmd")
