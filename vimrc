@@ -70,12 +70,13 @@ colorscheme desert
 "==========================
 "= autocmd
 "==========================
-autocmd BufEnter *.c setlocal ts=8 sw=8 sts=8 noexpandtab
-autocmd BufEnter *.S setlocal ts=8 sw=8 sts=8 noexpandtab
-autocmd BufEnter *.md setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
-autocmd BufEnter *.sh setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
-autocmd BufEnter *.py setlocal ts=8 sw=8 sts=8 noexpandtab
-autocmd BufEnter Makefile setlocal ts=8 sw=8 sts=8 noexpandtab
+autocmd BufEnter *.c        setlocal ts=8 sw=8 sts=8 noexpandtab
+autocmd BufEnter *.S        setlocal ts=8 sw=8 sts=8 noexpandtab
+autocmd BufEnter *.py       setlocal ts=8 sw=8 sts=8 noexpandtab
+autocmd BufEnter Makefile   setlocal ts=8 sw=8 sts=8 noexpandtab
+autocmd BufEnter .*         setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.md       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.sh       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
