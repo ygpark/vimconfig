@@ -30,7 +30,7 @@ Bundle 'bufexplorer.zip'
 Bundle 'DirDiff.vim'
 Bundle 'git://github.com/wesleyche/SrcExpl.git'
 Bundle 'SuperTab'
-Bundle 'SuperTab-continued.'
+"Bundle 'SuperTab-continued.'
 Bundle 'cscope_macros.vim'
 Bundle 'gtags.vim'
 Bundle 'OmniCppComplete'
@@ -41,6 +41,11 @@ Bundle 'https://github.com/dhruvasagar/vim-table-mode.git'
 "주석해제: \<space>
 Bundle 'The-NERD-Commenter'
 Bundle 'AutoComplPop'
+"Bottom Bar
+Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+"Git Plugin
+Bundle 'tpope/vim-fugitive'
+Bundle 'klen/python-mode'
 
 filetype plugin indent on     " required!
 
@@ -64,7 +69,6 @@ set expandtab
 set incsearch
 set printoptions=portrait:n,wrap:n,duplex:off
 set fileencodings=utf-8,euc-kr
-set gfn=나눔고딕코딩\ 12	" gvim용 폰트 설정
 colorscheme desert
 
 "==========================
@@ -76,10 +80,23 @@ autocmd BufEnter *.py       setlocal ts=8 sw=8 sts=8 noexpandtab
 autocmd BufEnter Makefile   setlocal ts=8 sw=8 sts=8 noexpandtab
 autocmd BufEnter .*         setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
 autocmd BufEnter *.md       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+"augroup vimrc_autocmds
+"    autocmd!
+    " highlight characters past column 120
+    autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
+    autocmd FileType python match Excess /\%120v.*/
+    autocmd FileType python set nowrap
+"    augroup END
 autocmd BufEnter *.sh       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+"====================================================
+" Powerline setup
+"====================================================
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
+set laststatus=2
 
 "====================================================
 "= gtags.vim 설정
@@ -99,10 +116,10 @@ nmap <C-\><C-]> :GtagsCursor<CR>
 "====================================================
 " <F3> 이전 정의로 이동 (SrcExpl 플러그인이 설정)
 " <F4> 다음 정의로 이동 (SrcExpl 플러그인이 설정)
-map <F6> :BufExplorer<cr>
-map <F7> :NERDTreeToggle<CR>
-map <F8> :SrcExplToggle<CR>
-map <F9> :TlistToggle<CR>
+map <F2> :NERDTreeToggle<CR>
+map <F3> :BufExplorer<cr>
+map <F4> :SrcExplToggle<CR>
+map <F5> :TlistToggle<CR>
 
 "=====  PageUP PageDown
 map <PageUp> <C-U><C-U>
@@ -265,3 +282,30 @@ set tags=tags;/
 "= Check Symbol
 "====================================================
 source ~/vimconfig/plugins/checksymbol.vim
+
+
+" GUI Settings {
+
+    " GVIM- (here instead of .gvimrc)
+    if has('gui_running')
+        set guioptions-=T           " Remove the toolbar
+        set lines=40                " 40 lines of text instead of 24
+        if has("gui_gtk2")
+            "set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+            set guifont=나눔고딕코딩\ 12,Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+        elseif has("gui_mac")
+            set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18        elseif has("gui_win32")
+            set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+        endif
+        if has('gui_macvim')
+            set transparency=5      " Make the window slightly transparent
+        endif
+    else
+        if &term == 'xterm' || &term == 'screen'
+            set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        endif
+        "set term=builtin_ansi       " Make arrow and other keys work
+    endif
+
+" }
+
