@@ -65,14 +65,22 @@ set cindent			"들여쓰기 설정
 set ruler			" 화면 우측 하단에 현재 커서의 위치(줄,칸)를 보여준다.
 set number			" 줄번호 출력
 set modifiable
-set hlsearch			" Highlight Search
 set ts=4			" tab stop - tab 크기
 set sw=4			" shift width - shift 크기 조절
 set sts=4			" soft tab stop - tab 이동 크기
-set expandtab
+set expandtab       " TAB을 space로 인식
+set nowrapscan      "검색시 문서의 끝에서 다시 처음으로 되돌아가 검색하지 않도록 지정
+set nobackup
+set visualbell
+set isfname+=$,{,}  " 'gf' 같이 cursor 가르치는 file jump시 '${project_name}/temp.txt' 변수 인식
 set incsearch
 set printoptions=portrait:n,wrap:n,duplex:off
 set fileencodings=utf-8,euc-kr
+
+set hlsearch		" Highlight Search
+set cul             " cursorline 
+autocmd InsertLeave,InsertEnter * set cul! "show cursorline only in insert mode
+
 colorscheme desert
 
 "==========================
