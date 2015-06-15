@@ -47,6 +47,10 @@ Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'tpope/vim-fugitive'
 Bundle 'klen/python-mode'
 
+Plugin 'EasyMotion'
+Plugin 'YankRing.vim'         
+
+
 filetype plugin indent on     " required!
 
 "====================================================
@@ -120,6 +124,7 @@ map <F2> :NERDTreeToggle<CR>
 map <F3> :BufExplorer<cr>
 map <F4> :SrcExplToggle<CR>
 map <F5> :TlistToggle<CR>
+nnoremap <silent> <F11> :YRShow<CR>
 
 "=====  PageUP PageDown
 map <PageUp> <C-U><C-U>
@@ -130,12 +135,6 @@ nmap <s-h> <C-W><
 nmap <s-j> <C-W>-
 nmap <s-k> <C-W>+
 nmap <s-l> <C-W>>
-
-"===== Vim 내에서 창 간 이동
-nmap <c-h> <c-w>h
-nmap <c-j> <c-w>j 
-nmap <c-k> <c-w>k 
-nmap <c-l> <c-w>l 
 
 "===== 버퍼간 이동
 map ,x :bn!<CR>	  " Switch to Next File Buffer
@@ -255,7 +254,11 @@ endif
 let NERDTreeWinPos="left"
 let g:NERDTreeDirArrows=0
 
-
+"====================================================
+"= YankRing 
+"====================================================
+let NERDTreeWinPos="left"
+let g:yankring_history_dir = '~/tmp'
 
 "====================================================
 "= tags 설정 (cscope, ctags)
