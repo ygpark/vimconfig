@@ -13,3 +13,6 @@ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 echo "vundle 설치중..."
 vi -c :BundleInstall -c :qa
+
+echo "semantic highligt 설치중..."
+git clone https://github.com/jaxbot/semantic-highlight.vim.git ~/.vim/bundle/semantic-highlight
