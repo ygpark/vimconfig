@@ -38,14 +38,17 @@ Bundle 'armasm'
 Bundle 'https://github.com/dhruvasagar/vim-table-mode.git'
 "주석달기: \cc, \cn, \cs
 "다른모양 주석 설정: \ca
-"주석해제: \<space>
+"주석해제: \c<space>
 Bundle 'The-NERD-Commenter'
 Bundle 'AutoComplPop'
 "Bottom Bar
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 "Git Plugin
 Bundle 'tpope/vim-fugitive'
-Bundle 'klen/python-mode'
+"Bundle 'klen/python-mode'
+"Android lint
+Bundle 'hsanson/vim-android'
+Plugin 'jaxbot/semantic-highlight.vim'
 
 filetype plugin indent on     " required!
 
@@ -69,17 +72,19 @@ set expandtab
 set incsearch
 set printoptions=portrait:n,wrap:n,duplex:off
 set fileencodings=utf-8,euc-kr
-colorscheme desert
+set mouse=a
+colorscheme ron
+syntax on
 
 "==========================
 "= autocmd
 "==========================
-autocmd BufEnter *.c        setlocal ts=8 sw=8 sts=8 noexpandtab
-autocmd BufEnter *.S        setlocal ts=8 sw=8 sts=8 noexpandtab
-autocmd BufEnter *.py       setlocal ts=8 sw=8 sts=8 noexpandtab
-autocmd BufEnter Makefile   setlocal ts=8 sw=8 sts=8 noexpandtab
-autocmd BufEnter .*         setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
-autocmd BufEnter *.md       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.c        setlocal ts=4 sw=4 sts=4 expandtab
+autocmd BufEnter *.S        setlocal ts=4 sw=4 sts=4 expandtab
+autocmd BufEnter *.py       setlocal ts=4 sw=4 sts=4 expandtab
+autocmd BufEnter Makefile   setlocal ts=4 sw=4 sts=4 expandtab
+autocmd BufEnter .*         setlocal ts=4 sw=4 sts=4 expandtab nocindent
+autocmd BufEnter *.md       setlocal ts=4 sw=4 sts=4 expandtab nocindent
 "augroup vimrc_autocmds
 "    autocmd!
     " highlight characters past column 120
@@ -87,7 +92,7 @@ autocmd BufEnter *.md       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
     autocmd FileType python match Excess /\%120v.*/
     autocmd FileType python set nowrap
 "    augroup END
-autocmd BufEnter *.sh       setlocal ts=8 sw=8 sts=8 noexpandtab nocindent
+autocmd BufEnter *.sh       setlocal ts=4 sw=4 sts=4 expandtab nocindent
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
@@ -116,10 +121,12 @@ nmap <C-\><C-]> :GtagsCursor<CR>
 "====================================================
 " <F3> 이전 정의로 이동 (SrcExpl 플러그인이 설정)
 " <F4> 다음 정의로 이동 (SrcExpl 플러그인이 설정)
-map <F2> :NERDTreeToggle<CR>
-map <F3> :BufExplorer<cr>
-map <F4> :SrcExplToggle<CR>
-map <F5> :TlistToggle<CR>
+map <F5> :NERDTreeToggle<CR>
+map <F6> :BufExplorer<cr>
+map <F7> :SrcExplToggle<CR>
+map <F8> :TlistToggle<CR>
+map <F9> :SemanticHighlight<CR>
+map <F10> :SemanticHighlightRevert<CR>
 
 "=====  PageUP PageDown
 map <PageUp> <C-U><C-U>
@@ -224,9 +231,9 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 let g:SrcExpl_updateTagsKey = "<F12>"
 
 " // Set "<F3>" key for displaying the previous definition in the jump list
-let g:SrcExpl_prevDefKey = "<F3>"
+"let g:SrcExpl_prevDefKey = "<F3>"
 " // Set "<F4>" key for displaying the next definition in the jump list
-let g:SrcExpl_nextDefKey = "<F4>"
+"let g:SrcExpl_nextDefKey = "<F4>"
 
 
 
@@ -234,7 +241,7 @@ let g:SrcExpl_nextDefKey = "<F4>"
 "====================================================
 "= Tag List
 "====================================================
-filetype on"vim filetpye on
+filetype on "vim filetpye on
 let Tlist_Ctags_Cmd="/usr/bin/ctags"
 let Tlist_Inc_Winwidth=0
 let Tlist_Exit_OnlyWindow=0
@@ -308,4 +315,44 @@ source ~/vimconfig/plugins/checksymbol.vim
     endif
 
 " }
+
+"====================================================
+"= Column 폭 100 이상일 때 구문 강조
+"====================================================
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%101v.\+/
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 자주 틀리는 글자 수정
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ab fucntion function
+ab calss class
+ab functio function
+ab dunction function
+ab functuin function
+ab dunction function
+ab functuin function
+ab functopn function
+ab fumction function
+ab vlass class
+ab xlass class
+ab classs class
+ab forarch foreach
+ab inser insert
+ab insertt insert
+ab quewrty query
+ab ovject object
+ab objectr object
+ab evho echo
+ab printr print_r
+ab prit print
+ab fales false
+ab treu true
+ab teur true
+ab nulll null
+ab nuii null
+ab retrun return
+ab retunr return
+ab htis this
+ab erturn return
 
